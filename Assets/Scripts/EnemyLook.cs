@@ -5,9 +5,10 @@ public class EnemyLook : MonoBehaviour
 {
     public GameObject _player;
     public float EnemySpeed = 3f;
-    private int count = 0;
+    public GameObject _healthBarCube;
+    public Material[] healthList;
     private int _health = 5;
-    public Text _textLose;
+
     private void Update()
     {
         float dist = Vector3.Distance(_player.transform.position, transform.position);
@@ -18,26 +19,22 @@ public class EnemyLook : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             _health--;
-            if(_health <= 0)
+
+            if (_health <= 0)
             {
                 Destroy(gameObject);
+            } else if (_health <= 1)
+            {
+                _healthBarCube.GetComponent<MeshRenderer>().material = healthList[1];
+            } else if (_health <= 3)
+            {
+                _healthBarCube.GetComponent<MeshRenderer>().material = healthList[0];
             }
+
             Destroy(collision.gameObject);
-        }
-        if(collision.gameObject.tag == "Player")
-        {
-            if(count == 5)
-            {
-                _textLose.text = "Вы проиграли!";
-                Time.timeScale = 0;
-            }else
-            {
-                count++;
-            }
-            
         }
     }
 }
