@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnemyLook : MonoBehaviour
 {
@@ -8,6 +7,13 @@ public class EnemyLook : MonoBehaviour
     public GameObject _healthBarCube;
     public Material[] healthList;
     private int _health = 5;
+
+    public PlayerHealth playerHealth;
+
+    private void Start()
+    {
+        playerHealth = FindObjectOfType<PlayerHealth>();
+    }
 
     private void Update()
     {
@@ -25,7 +31,9 @@ public class EnemyLook : MonoBehaviour
 
             if (_health <= 0)
             {
+                playerHealth.killFunction();
                 Destroy(gameObject);
+
             } else if (_health <= 1)
             {
                 _healthBarCube.GetComponent<MeshRenderer>().material = healthList[1];

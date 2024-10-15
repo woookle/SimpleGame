@@ -16,7 +16,7 @@ public class BulletMovement : MonoBehaviour
     }
     private void Shoot()
     {
-        Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 2f));
         RaycastHit hit;
 
         Vector3 targetPoint;
